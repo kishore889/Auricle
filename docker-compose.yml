@@ -1,0 +1,51 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: auricle_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: auricle
+      POSTGRES_PASSWORD: auricle_password
+      POSTGRES_DB: auricle_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U auricle -d auricle_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: auricle_backend
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://auricle:auricle_password@postgres:5432/auricle_db
+      - APP_ENV=production
+      - JWT_SECRET_KEY=change_this_to_a_secure_random_string_in_production
+      - FRONTEND_ORIGIN=http://localhost:5173
+      # Note: For production, you may need to update FRONTEND_ORIGIN to your real domain
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: auricle_frontend
+    restart: unless-stopped
+    depends_on:
+       - backend
+    ports:
+       - "5173:80"    
+
+volumes:
+  postgres_data:

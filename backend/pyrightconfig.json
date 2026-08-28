@@ -1,0 +1,14 @@
+{
+    "python.analysis.typeCheckingMode": "basic",
+    "python.analysis.extraPaths": [],
+    "python.analysis.diagnosticSeverityOverrides": {
+        "reportGeneralTypeIssues": "none",
+        "reportOperatorIssues": "none",
+        "reportAttributeAccessIssue": "none",
+        "reportArgumentType": "none",
+        "reportCallIssue": "none",
+        "reportIndexIssue": "none",
+        "reportReturnType": "none",
+        "reportMissingTypeArgument": "none"
+    }
+}

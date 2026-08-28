@@ -1,0 +1,40 @@
+import type { AIInsight } from '../types';
+
+export const mockAIInsights: AIInsight[] = [
+  {
+    id: 'ai-001',
+    timestamp: new Date().toISOString(),
+    eventType: 'SOUND_CLASSIFIED',
+    environmentalContext: 'Indoor — low noise',
+    confidence: 0.93,
+    priority: 'medium',
+    soundCategory: 'speech',
+    speechActivity: true,
+    engineState: 'running',
+    summary: 'Speech classified with high confidence in low-noise indoor environment',
+  },
+  {
+    id: 'ai-002',
+    timestamp: new Date(Date.now() - 8_000).toISOString(),
+    eventType: 'SAFETY_CLASSIFICATION',
+    environmentalContext: 'Urban outdoor',
+    confidence: 0.97,
+    priority: 'critical',
+    soundCategory: 'siren',
+    speechActivity: false,
+    engineState: 'running',
+    summary: 'Emergency siren detected — classified as critical priority safety event',
+  },
+  {
+    id: 'ai-003',
+    timestamp: new Date(Date.now() - 30_000).toISOString(),
+    eventType: 'NOISE_TREND',
+    environmentalContext: 'Indoor — moderate noise',
+    confidence: 0.78,
+    priority: 'low',
+    soundCategory: 'background_noise',
+    speechActivity: false,
+    engineState: 'running',
+    summary: 'Background noise trend detected; speech enhancement activated',
+  },
+];
