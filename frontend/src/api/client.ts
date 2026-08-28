@@ -9,11 +9,12 @@
 // =============================================================================
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL as string | undefined;
+console.log("AURICLE API BASE URL:", API_BASE_URL);
 
 if (!API_BASE_URL) {
   console.warn(
     '[AuricleAPI] VITE_API_BASE_URL is not set. ' +
-      'API requests will fail until a backend URL is configured in .env'
+    'API requests will fail until a backend URL is configured in .env'
   );
 }
 
